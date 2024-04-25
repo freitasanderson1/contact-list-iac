@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  back:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    restart: always
+    ports:
+      - 8009:8009
+  front:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 8080:3000
+    depends_on:
+      - back
