@@ -1,0 +1,1 @@
+from contactlist.admin.ContatosAdmin import ContatosAdmin
