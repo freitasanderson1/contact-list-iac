@@ -8,11 +8,12 @@ services:
     restart: always
     ports:
       - 8009:8009
-  # front:
-  #   build: ./frontend
-  #   volumes:
-  #     - ./frontend:/app
-  #   ports:
-  #     - 8080:3000
-  #   depends_on:
-  #     - back
+  front:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 3000:3000
+    restart: always
+    depends_on:
+      - back
