@@ -139,5 +139,6 @@ GitHub.sublime-settings
 
 */static/
 *env.py
+*/node_modules/
 # docker-compose.yml
 # scripts/commands.sh
