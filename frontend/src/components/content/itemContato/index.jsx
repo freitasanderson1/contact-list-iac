@@ -1,11 +1,9 @@
 import './itemContato.css'
 
-export function ItemContato({contact,index}){
-    console.log(`Index: ${index}`)
+export function ItemContato({contact}){
     return(
-        <tr className='itemContatoContainer'>
-            <td>{index}</td>
-            <td className='mainContact'>
+        <li className='itemContatoContainer'>
+            <span className='mainContact'>
                 <img className="contactImage" src={contact.imagem} alt={'Imagem de Perfil '+ contact.nome} widtd={50} height={50}/>
                 <div className='divNameCelular'>
                     <span className="contactName">{contact.nome}</span>
@@ -15,10 +13,10 @@ export function ItemContato({contact,index}){
                         {contact.celular.slice(7)}
                     </span>
                 </div>
-            </td>
+            </span>
 
-            <td className="contactEmail">{contact.email}</td>
-            <td className='contactBirtdDate'> {contact.dataNascimento}</td>
-        </tr>
+            <span className="contactEmail">{contact.email}</span>
+            <span className='contactBirtdDate'> {contact.dataNascimento}</span>
+        </li>
     )
 }

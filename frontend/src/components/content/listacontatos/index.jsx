@@ -16,18 +16,13 @@ export const ListaContatos = () =>{
     },[])
     
     return(
-        <table id="tableContatos">
-            <thead>
-                <tr>
-                    <th>Index</th>
-                    <th>Pessoa</th>
-                    <th>Email</th>
-                    <th>Data de Aniversário</th>
-                </tr>
-            </thead>
-            <tbody>
-                {contacts.map((contact,index) => <ItemContato contact={contact} index={index+1} key={index}/>)}
-            </tbody>
-        </table>
+        <ul id="ulContatos">
+            <li id="liHead">
+                <span>Pessoa</span>
+                <span>Email</span>
+                <span>Data de Aniversário</span>
+            </li>
+            {contacts.map((contact,index) => <ItemContato contact={contact} key={index}/>)}
+        </ul>
     )
 }
