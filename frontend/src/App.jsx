@@ -1,5 +1,7 @@
 import { Sidebar } from "./components/sidebar"
-import { ListaContatos } from "./components/content/listacontatos"
+import { Content } from "./components/content"
+
+import './App.css'
 
 function App() {
 
@@ -7,7 +9,7 @@ function App() {
     <>
       <div className="App">
         <Sidebar/>
-        <ListaContatos/>
+        <Content/>
       </div>
     </>
   )

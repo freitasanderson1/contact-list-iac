@@ -1,12 +1,24 @@
-export const ItemContato = ({contato}) => {
+import './itemContato.css'
+
+export function ItemContato({contact,index}){
+    console.log(`Index: ${index}`)
     return(
-        <>
-            <li>
-                <img src={contato.imagem} alt={'Imagem de Perfil '+ contato.nome} width={50} height={50}/>
-                <span>{contato.nome}</span>
-                <span>{contato.email}</span>
-                <span>{contato.celular}</span>
-            </li>
-        </>
+        <tr className='itemContatoContainer'>
+            <td>{index}</td>
+            <td className='mainContact'>
+                <img className="contactImage" src={contact.imagem} alt={'Imagem de Perfil '+ contact.nome} widtd={50} height={50}/>
+                <div className='divNameCelular'>
+                    <span className="contactName">{contact.nome}</span>
+                    <span className="contactCelular">
+                        ({contact.celular.slice(0,2)})
+                        {contact.celular.slice(2,7)}-
+                        {contact.celular.slice(7)}
+                    </span>
+                </div>
+            </td>
+
+            <td className="contactEmail">{contact.email}</td>
+            <td className='contactBirtdDate'> {contact.dataNascimento}</td>
+        </tr>
     )
 }

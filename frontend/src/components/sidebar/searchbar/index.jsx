@@ -1,12 +1,15 @@
 import './searchbar.css'
 
-import {GetContacts}from '../../../services/api'
+import { apiContacts } from '../../../services/api'
 
 async function searchByInputValue(){
     const inputValue = document.querySelector('#searchContact').value
 
-    const listContacts = await GetContacts(inputValue)
-    
+    Promise.resolve(apiContacts.get(inputValue ? `/${inputValue}`: '')).then((response) => {
+        const listContacts = response.data
+        console.log(listContacts)
+    })
+
 }
 
 export function Searchbar(){
