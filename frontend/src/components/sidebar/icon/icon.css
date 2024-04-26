@@ -1,0 +1,17 @@
+.ContactusName{
+    font-family: "Belgrano", serif;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    font-weight: 600;
+    color: #0E639E;
+    text-shadow: 1px 1px 1px #00000041;
+
+}
+.divIcon{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 2px solid #0e629e5b;
+    margin-bottom: 1rem;
+
+}

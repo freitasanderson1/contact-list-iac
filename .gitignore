@@ -142,3 +142,5 @@ GitHub.sublime-settings
 */node_modules/
 # docker-compose.yml
 # scripts/commands.sh
+# React Component Preview
+previewConfig.json

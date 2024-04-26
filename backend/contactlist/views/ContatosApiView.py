@@ -13,3 +13,16 @@ class ContatosApiView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Contatos.objects.all().order_by('nome')
+    
+    def retrieve(self, request, *args, **kwargs):
+        termo = kwargs.get('pk').strip()
+
+        queryset = Contatos.objects.filter(
+            Q(nome__icontains=termo)|
+            Q(email__icontains=termo)|
+            Q(celular__icontains=termo)
+        )
+
+        Contatos_serialized = ContatosSerializer(queryset, many=True)
+
+        return Response(Contatos_serialized.data)

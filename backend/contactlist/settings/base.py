@@ -16,6 +16,7 @@ LOCAL_APPS = ['contactlist']
 
 OTHER_APPS = [
     'rest_framework',
+    'corsheaders',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + OTHER_APPS
@@ -23,6 +24,7 @@ INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + OTHER_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
