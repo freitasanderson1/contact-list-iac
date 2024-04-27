@@ -6,5 +6,23 @@
 }
 #liHead{
     display: flex;
-    gap: 10rem;
+}
+#spanIndex{
+    width: 3%;
+}
+#spanPessoa{
+    width: 30%;
+    text-align: start;
+
+}
+#spanEmail{
+    width: 20%;
+    text-align: start;
+
+}
+#spanData{
+    width: 12%;
+}
+#spanAcoes{
+    width: 35%;
 }

@@ -18,11 +18,13 @@ export const ListaContatos = () =>{
     return(
         <ul id="ulContatos">
             <li id="liHead">
-                <span>Pessoa</span>
-                <span>Email</span>
-                <span>Data de Aniversário</span>
+                <span id='spanIndex'>#</span>
+                <span id='spanPessoa'>Pessoa</span>
+                <span id='spanEmail'>Email</span>
+                <span id='spanData'>Data de Nascimento</span>
+                <span id='spanAcoes'>Ações</span>
             </li>
-            {contacts.map((contact,index) => <ItemContato contact={contact} key={index}/>)}
+            {contacts.map((contact,index) => <ItemContato contact={contact} index={index} key={index}/>)}
         </ul>
     )
 }
