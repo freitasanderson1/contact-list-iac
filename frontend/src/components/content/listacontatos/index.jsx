@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiContacts } from '../../../services/api'
 import { ItemContato } from '../itemContato'
+import { HtmlLoadingContacts } from '../../sidebar/searchbar'
 
 import './listacontatos.css'
 
@@ -24,7 +25,7 @@ export const ListaContatos = () =>{
                 <span id='spanData'>Data de Nascimento</span>
                 <span id='spanAcoes'>Ações</span>
             </li>
-            {contacts.map((contact,index) => <ItemContato contact={contact} index={index} key={index}/>)}
+            {contacts.map((contact,index) => <ItemContato contact={contact} index={index+1} key={index}/>)}
         </ul>
     )
 }

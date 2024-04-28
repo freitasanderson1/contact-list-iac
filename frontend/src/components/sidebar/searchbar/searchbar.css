@@ -7,17 +7,19 @@
     font-size: .875rem;
     border-radius: 0.5rem;
     border:1px solid #ced4da;
+    outline-color: #0E639E;
+
 }
 
 #iSearchContact{
     position: relative;
     bottom: 1.8rem;
     left: 7.5rem;
-    
     svg{
         color: #0E639E;    
     }
 }
+
 .containerSearchBar{
     display: flex;
     justify-content: center;
@@ -25,4 +27,15 @@
     flex-direction: column;
     margin-left: 1rem;
     margin-right: 1rem;
+}
+.d-none{
+    display: none;
+}
+#divLoadingContacts{
+    margin-top: 1rem;
+    span{
+        text-align: center;
+        color: #0E639E;
+        font-size: 1.5em;
+    }
 }

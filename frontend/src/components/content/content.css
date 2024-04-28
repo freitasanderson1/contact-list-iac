@@ -1,4 +1,31 @@
 .container{
     font-family: "Belgrano", serif;
-    width:80%;
+    width:83%;
+}
+.divTitle{
+    border-bottom: 2px solid #0e629e5b;
+}
+.fs-1{
+    color: #0E639E;
+    font-size: 1.5em;
+    svg{
+        color: #0E639E;
+        margin-right: 0.5rem;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.divSubtitle{
+    padding-top: 1rem;
+    div{
+        display: flex;
+        justify-content: end;
+        padding-right: 17.5rem;
+    }
+}
+.fs-2{
+    font-size: 1.2rem;
+    margin-left: 2rem;
+    color: #0E639E;
 }

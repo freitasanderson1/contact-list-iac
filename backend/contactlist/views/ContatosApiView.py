@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from django.core import serializers
 from django.db.models import Q
 
+import time
 import json
 
 from contactlist.models import Contatos
@@ -15,6 +16,7 @@ class ContatosApiView(viewsets.ModelViewSet):
         return Contatos.objects.all().order_by('nome')
     
     def retrieve(self, request, *args, **kwargs):
+        time.sleep(1)
         termo = kwargs.get('pk').strip()
 
         queryset = Contatos.objects.filter(

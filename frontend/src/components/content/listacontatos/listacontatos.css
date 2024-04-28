@@ -9,20 +9,23 @@
 }
 #spanIndex{
     width: 3%;
+    font-weight: 600;
 }
 #spanPessoa{
     width: 30%;
     text-align: start;
-
+    font-weight: 600;
 }
 #spanEmail{
     width: 20%;
     text-align: start;
-
+    font-weight: 600;
 }
 #spanData{
     width: 12%;
+    font-weight: 600;
 }
 #spanAcoes{
     width: 35%;
+    font-weight: 600;
 }

@@ -12,7 +12,7 @@ export function ItemContato({contact,index}){
         <li className='itemContatoContainer'>
             <span className='indexContact'>{index}</span>
             <span className='mainContact'>
-                <img className="contactImage" src={contact.imagem} alt={'Imagem de Perfil '+ contact.nome} widtd={50} height={50}/>
+                <img className="contactImage" src={contact.imagem} alt={'Imagem de Perfil '+ contact.nome} width={40} height={40}/>
                 <div className='divNameCelular'>
                     <span className="contactName">{contact.nome}</span>
                     <span className="contactCelular">
