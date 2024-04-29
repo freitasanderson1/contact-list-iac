@@ -1,0 +1,118 @@
+.ModalBackdrop{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000b3;
+    z-index: 1000;
+    padding: 0;
+}
+
+.Modal{
+    position: relative;
+    z-index: 1001;
+    background-color: #FFFFFF;
+    height: 70vh;
+    width: 40vw;
+    top:10vh;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+
+}
+.ModalHeader{
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid #222222;
+    padding-inline: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    span{
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        padding-inline: 1rem;
+        margin-left: 0;
+        font-weight: 500;
+    };
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.ModalBody{
+    margin-bottom: 2rem;
+}
+.formAddContato{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 50% 50%;
+}
+.divInput{
+    display: flex;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    align-items: center;
+    min-width: 45%;
+
+}
+.formControl{
+    border: 1px solid #00000081;
+    border-radius: 4px;
+    outline-color: #0e629ea7;
+    height: 1.5rem;
+    width: 90%;
+}
+.labelForm{
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: #001a2c;
+}
+.helpText{
+    position: relative; 
+    width:  100%; 
+    margin-left: 5rem;
+    font-Size: 12px;
+    font-Style: italic;
+    color: #640A10;
+}
+.fotoDiv{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    width: 200%;
+    margin-left: 1rem;
+}
+.btnUpload{
+    border: 1px solid #019bee;
+    background-color: #019bee;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+}
+.btnUpload:hover{
+    border: 1px solid #006da7;
+    background-color: #006da7;
+}
+.imagePreview{
+    height:15rem;
+    width:15rem;
+    border-radius: 20rem;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border: 1px solid #019bee;
+}
+.ModalFooter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #019bee;
+    margin-top: 1rem;
+}

@@ -18,11 +18,9 @@
 }
 .divSubtitle{
     padding-top: 1rem;
-    div{
-        display: flex;
-        justify-content: end;
-        padding-right: 17.5rem;
-    }
+    display: flex;
+    justify-content: space-between;
+    padding-right: 17.5rem;
 }
 .fs-2{
     font-size: 1.2rem;

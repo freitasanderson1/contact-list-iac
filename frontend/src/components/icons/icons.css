@@ -10,3 +10,8 @@
       transform: rotate(359deg);
     }
   }
+
+.danger{
+  color: #dc143c;
+  cursor: pointer;
+}

@@ -1,9 +1,8 @@
 import './content.css'
 import { ListaContatos } from './listacontatos'
-import { UserAdd } from '../icons'
+import { ButtonAddContato } from './actionButtons/ButtonAddContato'
 
 export function Content(){
-
     return(
         <>
             <div className='container'>
@@ -12,9 +11,8 @@ export function Content(){
                 </div>
                 <div className='divSubtitle'>
                     <span className='fs-2'>Contactus cadastrados</span>
-                    <div>
-                        <button className='btn btnAdicionar'><UserAdd/>Novo Contactus</button>
-                    </div>
+                    
+                    <ButtonAddContato/>
                 </div>
                 <ListaContatos/>
             </div>
