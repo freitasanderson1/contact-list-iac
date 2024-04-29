@@ -13,7 +13,7 @@
     position: relative;
     z-index: 1001;
     background-color: #FFFFFF;
-    height: 70vh;
+    min-height: 70vh;
     width: 40vw;
     top:10vh;
     margin-left: auto;
@@ -42,9 +42,7 @@
     justify-content: space-between;
 
 }
-.ModalBody{
-    margin-bottom: 2rem;
-}
+
 .formAddContato{
     display: grid;
     width: 100%;
@@ -115,4 +113,9 @@
     justify-content: space-between;
     border-top: 1px solid #019bee;
     margin-top: 1rem;
+}
+.msg{
+    display:"flex"; 
+    align-items:"center";
+    justify-content:"center";
 }

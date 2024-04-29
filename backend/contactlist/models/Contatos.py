@@ -3,7 +3,7 @@ from django.db import models
 class Contatos(models.Model):
     nome= models.CharField(verbose_name=u'Nome',max_length=255)
     email = models.CharField(u'Email', max_length=255,null=True, unique=True)
-    celular = models.CharField('Celular com DDD',max_length=11, null=True, blank=True, help_text='Fone de contato com DDD (63) 98765-4321', default=None)
+    celular = models.CharField('Celular com DDD',max_length=11, null=True, unique=True, blank=True, help_text='Fone de contato com DDD (63) 98765-4321', default=None)
     
     imagem = models.ImageField(u'Imagem do Contato', upload_to="contato", null=True, blank=True, help_text='Imagem que será mostrada em seu Perfil')
 

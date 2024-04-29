@@ -1,8 +1,11 @@
 import '../modal.css'
 
+import ReactDOM from 'react-dom/client'
+
 import { CloseIcon, ImageUploadIcon, UserAdd } from '../../../icons';
 import { useState } from 'react';
 import { apiContacts } from '../../../../services/api'
+import ListUpdate  from '../../../callContacts/ListUpdates'
 
 function createNewContactus(){
     document.querySelectorAll('.formAddContato input').forEach((input) => {
@@ -13,13 +16,11 @@ function createNewContactus(){
             document.querySelector(`#${input.id}_helpText`).classList.remove('d-none')
         }else{
             document.querySelector(`#${input.id}_helpText`).classList.add('d-none')
-            newContactPost()
         }
     })
 }
 
 async function newContactPost(){
-    console.log(document.querySelector('#novo_telefone').value.replace('(','').replace(')','').replace('-','').replace(' ','').replace(' ',''))
     
     const data = new FormData();
 
@@ -29,6 +30,9 @@ async function newContactPost(){
     data.append("imagem", document.querySelector('#nova_imagem').files[0])
     data.append("dataNascimento", document.querySelector('#novo_dataNascimento').value)
     
+    var msg = document.querySelector('#msg')
+    var htmlMsg = ReactDOM.createRoot(msg)
+
     await apiContacts.post(
         '',
         data,
@@ -39,8 +43,30 @@ async function newContactPost(){
         }
     ).then((result) =>{
         console.log(result.status,result.statusText)
-    }).catch((err)=>{return null})
-
+        if(result.status==201){
+            
+            
+            htmlMsg.render(
+                <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
+                    <div style={{backgroundColor:"#01ee7f",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
+                        <span>Contactus Criado</span>
+                    </div>
+                </div>
+            )
+        }
+    }).catch((err)=>{
+        if(err.response.status == 400){
+            htmlMsg.render(
+                <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
+                    <div style={{backgroundColor:"#980404",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
+                        <span>Contactus com este Email ou Número já existente</span>
+                    </div>
+                </div>
+            )
+        }
+        return null
+    })
+    ListUpdate()
 }
 
 function hiddenInput(e){
@@ -80,6 +106,10 @@ function hiddenInput(e){
 
 
 }
+const handleSubmitNewContact = async (event) => {
+    event.preventDefault();
+    await newContactPost();
+};
 
 export function ModalAddContato({show,closeModal}) {
     const [file, setFile] = useState();
@@ -98,63 +128,67 @@ export function ModalAddContato({show,closeModal}) {
                         </div>
                         <hr />
                         <div className='ModalBody'>
-                            <div className="formAddContato">
-                                <div style={{display:"flex",flexDirection:"column"}}>
-                                    <div className="divInput">
-                                        <span className="labelForm">Nome:</span>
-                                        <input onInput={hiddenInput} id="novo_nome" name="nome" className="formControl" placeholder="Fulano da Silva" type="text" required />
-                                    </div>
-                                    <small id="novo_nome_helpText" className='d-none helpText'>Por favor, insira um Nome.</small>
-                                </div>
-                                <div style={{display:"flex",flexDirection:"column"}}>
-                                    <div className="divInput">
-                                        <span className="labelForm">Email:</span>
-                                        <input onInput={hiddenInput} id="novo_email" name="email" className="formControl" placeholder="fulano@mail.com" style={{margin:"0 1rem 0 0"}} type="email" required />
-                                    </div>
-                                    <small id="novo_email_helpText" className='d-none helpText'>Por favor insira um email válido</small>
-                                </div>
-                                <div style={{display:"flex",flexDirection:"column"}}>
-                                    <div className="divInput">
-                                        <span className="labelForm">Telefone:</span>
-                                        <input onInput={hiddenInput} id="novo_telefone" name="telefone" className="formControl" placeholder="(63) 94002-8922" style={{width:"100%"}} type="text" required />
-                                    </div>
-                                    <small className='helpText'>Somente números</small>
-                                    <small id="novo_telefone_helpText" className='d-none helpText'>Por favor insira um telefone válido</small>
-                                </div>
-                                <div style={{display:"flex",flexDirection:"column"}}>
-                                    <div className="divInput">
-                                        <span className="labelForm" style={{width:"75%"}}>Data de Nascimento:</span>
-                                        <input onInput={hiddenInput} id="novo_dataNascimento" name="dataNascimento" className="formControl" style={{width:"75%", margin:"0 1rem 0 0"}} type="date" required />
-                                    </div>
-                                    <small id="novo_dataNascimento_helpText" className='d-none helpText'>Por favor insira uma data de nascimento</small>
-                                </div>
+                            <div id="msg">
                                 
-                                <div className="fotoDiv">
-                                    <span className="labelForm" style={{width:"15%",marginRight:"0"}}>Foto:</span>
-                                    <input id="nova_imagem" onInput={hiddenInput} onChange={handleChange} name="nova_imagem" type="file" hidden/>
-                                    <label htmlFor="nova_imagem" className="btn btnUpload">
-                                        <ImageUploadIcon/>
-                                        Selecionar Imagem
-                                    </label>
-                                    <small id="nova_imagem_helpText" className='d-none helpText' style={{marginLeft:"18rem"}}>Por favor, selecione uma imagem</small>
-                                    <small style={{marginInline:"auto",marginTop:"1rem", marginBottom:"1rem"}}>Prévia Imagem</small>
-                                    <img className="imagePreview" src={file} />
+                            </div>
+                            <form onSubmit={handleSubmitNewContact}>
+                                <div className="formAddContato">
+                                    <div style={{display:"flex",flexDirection:"column"}}>
+                                        <div className="divInput">
+                                            <span className="labelForm">Nome:</span>
+                                            <input onInput={hiddenInput} id="novo_nome" name="nome" className="formControl" placeholder="Fulano da Silva" type="text" required />
+                                        </div>
+                                        <small id="novo_nome_helpText" className='d-none helpText'>Por favor, insira um Nome.</small>
+                                    </div>
+                                    <div style={{display:"flex",flexDirection:"column"}}>
+                                        <div className="divInput">
+                                            <span className="labelForm">Email:</span>
+                                            <input onInput={hiddenInput} id="novo_email" name="email" className="formControl" placeholder="fulano@mail.com" style={{margin:"0 1rem 0 0"}} type="email" required />
+                                        </div>
+                                        <small id="novo_email_helpText" className='d-none helpText'>Por favor insira um email válido</small>
+                                    </div>
+                                    <div style={{display:"flex",flexDirection:"column"}}>
+                                        <div className="divInput">
+                                            <span className="labelForm">Telefone:</span>
+                                            <input onInput={hiddenInput} id="novo_telefone" name="telefone" className="formControl" placeholder="(63) 94002-8922" style={{width:"100%"}} type="text" required />
+                                        </div>
+                                        <small className='helpText'>Somente números</small>
+                                        <small id="novo_telefone_helpText" className='d-none helpText'>Por favor insira um telefone válido</small>
+                                    </div>
+                                    <div style={{display:"flex",flexDirection:"column"}}>
+                                        <div className="divInput">
+                                            <span className="labelForm" style={{width:"75%"}}>Data de Nascimento:</span>
+                                            <input onInput={hiddenInput} id="novo_dataNascimento" name="dataNascimento" className="formControl" style={{width:"75%", margin:"0 1rem 0 0"}} type="date" required />
+                                        </div>
+                                        <small id="novo_dataNascimento_helpText" className='d-none helpText'>Por favor insira uma data de nascimento</small>
+                                    </div>
+                                    
+                                    <div className="fotoDiv">
+                                        <span className="labelForm" style={{width:"15%",marginRight:"0"}}>Foto:</span>
+                                        <input id="nova_imagem" onInput={hiddenInput} onChange={handleChange} name="nova_imagem" type="file" hidden/>
+                                        <label htmlFor="nova_imagem" className="btn btnUpload">
+                                            <ImageUploadIcon/>
+                                            Selecionar Imagem
+                                        </label>
+                                        <small id="nova_imagem_helpText" className='d-none helpText' style={{marginLeft:"18rem"}}>Por favor, selecione uma imagem</small>
+                                        <small style={{marginInline:"auto",marginTop:"1rem", marginBottom:"1rem"}}>Prévia Imagem</small>
+                                        <img className="imagePreview" src={file} />
+                                    </div>
+
+
                                 </div>
+                                <div className="ModalFooter">
+                                    <button className="btn btnExcluir" style={{paddingRight:"1rem",paddingTop:"0.25rem",paddingBottom:"0.25rem"}} onClick={closeModal}>
+                                        <CloseIcon/>
+                                        Cancelar
+                                    </button>
 
-                            </div>
-
-
-                            <div className="ModalFooter">
-                                <button className="btn btnExcluir" style={{paddingRight:"1rem",paddingTop:"0.25rem",paddingBottom:"0.25rem"}} onClick={closeModal}>
-                                    <CloseIcon/>
-                                    Cancelar
-                                </button>
-
-                                <button className="btn btnAdicionar" style={{paddingInline:"1rem",paddingTop:"0.25rem",paddingBottom:"0.25rem"}} onClick={createNewContactus}>
-                                    <UserAdd/>
-                                    Salvar Novo Contactus
-                                </button>
-                            </div>
+                                    <button type="submit" className="btn btnAdicionar" style={{paddingInline:"1rem",paddingTop:"0.25rem",paddingBottom:"0.25rem"}} onClick={createNewContactus}>
+                                        <UserAdd/>
+                                        Salvar Novo Contactus
+                                    </button>
+                                </div>
+                            </form>
 
                         </div>
 

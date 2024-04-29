@@ -1,21 +1,14 @@
-import { useEffect, useState } from "react";
-import { apiContacts } from '../../../services/api'
+import React, { useEffect } from "react";
 import { ItemContato } from '../itemContato'
-import { HtmlLoadingContacts } from '../../sidebar/searchbar'
 
 import './listacontatos.css'
 
-export const ListaContatos = () =>{
-    const [contacts, setContacts] = useState([])
-
-    useEffect(() => {
-        Promise.resolve(apiContacts.get()).then((contactsResponse) => {
-            const contacts = contactsResponse.data
-            setContacts(contacts)
-            // console.log(contacts)
-        })
-    },[])
+export const ListaContatos = ({ fetchContacts, contacts }) =>{
     
+    useEffect(() => {
+        fetchContacts();
+    }, []);
+
     return(
         <ul id="ulContatos">
             <li id="liHead">
@@ -25,7 +18,11 @@ export const ListaContatos = () =>{
                 <span id='spanData'>Data de Nascimento</span>
                 <span id='spanAcoes'>Ações</span>
             </li>
-            {contacts.map((contact,index) => <ItemContato contact={contact} index={index+1} key={index}/>)}
+
+            {contacts.map((contact,index) => (
+                <ItemContato contact={contact} index={index+1} key={index}/>
+            ))}
+
         </ul>
     )
 }

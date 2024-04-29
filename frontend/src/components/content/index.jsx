@@ -1,6 +1,6 @@
 import './content.css'
-import { ListaContatos } from './listacontatos'
 import { ButtonAddContato } from './actionButtons/ButtonAddContato'
+import CallContacts from '../callContacts/index'
 
 export function Content(){
     return(
@@ -14,7 +14,9 @@ export function Content(){
                     
                     <ButtonAddContato/>
                 </div>
-                <ListaContatos/>
+
+                <CallContacts/>
+
             </div>
         </>
     )
