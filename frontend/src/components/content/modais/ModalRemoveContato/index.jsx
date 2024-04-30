@@ -13,8 +13,6 @@ async function deleteContact(){
         document.querySelector('#mensagemDelete').classList.add("d-none")
         document.querySelector('#mensagemDeleteSuccess').classList.remove("d-none")
     })
-
-    ListUpdate()
 }
 
 export function ModalRemoveContato({showDelete,contact,closeModal}){
@@ -25,7 +23,7 @@ export function ModalRemoveContato({showDelete,contact,closeModal}){
                     <div className='Modal' style={{minHeight:"20vh"}}>
                         <div className='ModalHeader'>
                             <span className='fs-2'>Remover Contato</span>
-                            <CloseIcon className={'danger'} onClick={closeModal}/>
+                            <CloseIcon className={'danger'} onClick={(event) => {closeModal, ListUpdate()}}/>
                         </div>
                         <hr />
                         <div className='ModalBody'>

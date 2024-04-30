@@ -7,118 +7,106 @@ import { useState } from 'react';
 import { apiContacts } from '../../../../services/api'
 import ListUpdate  from '../../../callContacts/ListUpdates'
 
-function createNewContactus(){
-    document.querySelectorAll('.formAddContato input').forEach((input) => {
-        if(input.value=='' || 
-            (input.name ==='email' && !input.value.includes('@'))||
-            (input.name ==='telefone' && input.value.length< 16)
-        ){
-            document.querySelector(`#${input.id}_helpText`).classList.remove('d-none')
-        }else{
-            document.querySelector(`#${input.id}_helpText`).classList.add('d-none')
-        }
-    })
-}
-
-async function newContactPost(){
-    if(!(document.querySelector('#novo_telefone').value.length < 15) && (document.querySelector('#novo_email').value.includes('@'))){
-
-        const data = new FormData();
-
-        data.append("nome", document.querySelector('#novo_nome').value)
-        data.append("email", document.querySelector('#novo_email').value)
-        data.append("celular", document.querySelector('#novo_telefone').value.replace(' ','').replace('(','').replace(')','').replace('-','').replace(' ',''))
-        data.append("imagem", document.querySelector('#nova_imagem').files[0])
-        data.append("dataNascimento", document.querySelector('#novo_dataNascimento').value)
-        
-        var msg = document.querySelector('#msg')
-        var htmlMsg = ReactDOM.createRoot(msg)
-
-        await apiContacts.post(
-            '',
-            data,
-            {headers: 
-                {
-                    "content-type": "multipart/form-data"
-                }
-            }
-        ).then((result) =>{
-            console.log(result.status,result.statusText)
-            if(result.status==201){
-                
-                
-                htmlMsg.render(
-                    <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
-                        <div style={{backgroundColor:"#01ee7f",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
-                            <span>Contactus Criado</span>
-                        </div>
-                    </div>
-                )
-            }
-        }).catch((err)=>{
-            if(err.response.status == 409){
-                htmlMsg.render(
-                    <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
-                        <div style={{backgroundColor:"#980404",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
-                            <span>Contactus com este Email ou Número já existente</span>
-                        </div>
-                    </div>
-                )
-            }
-            return null
-        })
-        ListUpdate()
-    }
-}
-
-function hiddenInput(e){
-    if(e.target.name =='telefone'){
-        e.target.value =  e.target.value.replace(/[a-zA-Z]/g, '');
-
-        let input = e.target.value;
-        
-    
-        input = input.replace(/\D/g, '');
-
-    
-        let formattedInput = '';
-        if (input.length > 10) {
-            formattedInput = '(' + input.substring(0, 2);
-            if (input.length > 2) {
-                formattedInput += ') ' + input.substring(2, 3) + ' ' + input.substring(3, 7);
-                if (input.length > 7) {
-                    formattedInput += '-' + input.substring(7, 11);
-                }
-            }
-            e.target.value = formattedInput;
-        }
-
-
-        document.querySelector(`#${e.target.id}_helpText`).classList.add('d-none')
-    }
-    if (e.target.name==='email'){ 
-        if(!e.target.value.includes('@')){
-            document.querySelector(`#${e.target.id}_helpText`).classList.remove('d-none')
-        }
-        else{
-            document.querySelector(`#${e.target.id}_helpText`).classList.add('d-none')
-
-        }
-    }
-
-
-}
-const handleSubmitNewContact = async (event) => {
-    event.preventDefault();
-    await newContactPost();
-};
-
 export function ModalAddContato({show,closeModal}) {
     const [file, setFile] = useState();
+    const [msg, setMsg] = useState();
+    const[msgType, setMsgType] = useState()
+
     function handleChange(e) {
         setFile(URL.createObjectURL(e.target.files[0]));
     }
 
+    function createNewContactus(){
+        document.querySelectorAll('.formAddContato input').forEach((input) => {
+            if(input.value=='' || 
+                (input.name ==='email' && !input.value.includes('@'))||
+                (input.name ==='telefone' && input.value.length< 16)
+            ){
+                document.querySelector(`#${input.id}_helpText`).classList.remove('d-none')
+            }else{
+                document.querySelector(`#${input.id}_helpText`).classList.add('d-none')
+            }
+        })
+    }
+    
+    async function newContactPost(){
+        if(!(document.querySelector('#novo_telefone').value.length < 15) && (document.querySelector('#novo_email').value.includes('@'))){
+    
+            const data = new FormData();
+    
+            data.append("nome", document.querySelector('#novo_nome').value)
+            data.append("email", document.querySelector('#novo_email').value)
+            data.append("celular", document.querySelector('#novo_telefone').value.replace(' ','').replace('(','').replace(')','').replace('-','').replace(' ',''))
+            data.append("imagem", document.querySelector('#nova_imagem').files[0])
+            data.append("dataNascimento", document.querySelector('#novo_dataNascimento').value)
+
+            await apiContacts.post(
+                '',
+                data,
+                {headers: 
+                    {
+                        "content-type": "multipart/form-data"
+                    }
+                }
+            ).then((result) =>{
+                // console.log(result.status,result.statusText)
+                if(result.status==201){
+                    setMsgType('#01ee7f')
+                    setMsg('Contactus Criado')
+                }
+            }).catch((err)=>{
+                if(err.response.status == 409){
+                    setMsgType('#980404')
+                    setMsg('Contactus com este Email ou Número já existente')
+                }
+                return null
+            })
+            ListUpdate()
+        }
+    }
+    
+    function hiddenInput(e){
+        if(e.target.name =='telefone'){
+            e.target.value =  e.target.value.replace(/[a-zA-Z]/g, '');
+    
+            let input = e.target.value;
+            
+        
+            input = input.replace(/\D/g, '');
+    
+        
+            let formattedInput = '';
+            if (input.length > 10) {
+                formattedInput = '(' + input.substring(0, 2);
+                if (input.length > 2) {
+                    formattedInput += ') ' + input.substring(2, 3) + ' ' + input.substring(3, 7);
+                    if (input.length > 7) {
+                        formattedInput += '-' + input.substring(7, 11);
+                    }
+                }
+                e.target.value = formattedInput;
+            }
+    
+    
+            document.querySelector(`#${e.target.id}_helpText`).classList.add('d-none')
+        }
+        if (e.target.name==='email'){ 
+            if(!e.target.value.includes('@')){
+                document.querySelector(`#${e.target.id}_helpText`).classList.remove('d-none')
+            }
+            else{
+                document.querySelector(`#${e.target.id}_helpText`).classList.add('d-none')
+    
+            }
+        }
+    
+    
+    }
+    const handleSubmitNewContact = async (event) => {
+        event.preventDefault();
+        await newContactPost();
+    };
+    
     if(show){
         return (
             <>
@@ -131,7 +119,11 @@ export function ModalAddContato({show,closeModal}) {
                         <hr />
                         <div className='ModalBody'>
                             <div id="msg">
-                                
+                                <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
+                                    <div style={{backgroundColor:msgType,color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
+                                        <span>{msg}</span>
+                                    </div>
+                                </div>
                             </div>
                             <form onSubmit={handleSubmitNewContact}>
                                 <div className="formAddContato">
