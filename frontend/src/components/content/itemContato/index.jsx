@@ -1,13 +1,14 @@
 import './itemContato.css'
 
-import { UserEdit, Delete } from '../../icons'
+import { ButtonEditContato } from '../actionButtons/ButtonEditContato'
+import { ButtonRemoveContato } from '../actionButtons/ButtonRemoveContato'
 
 function dateFormated(date){
     var dataFormatada = `${date.slice(8,10)}/${date.slice(5,7)}/${date.slice(0,4)}`
     return dataFormatada
 }
 
-export function ItemContato({contact,index}){
+export function ItemContato({contact,index,handleShowModalRemoveContato}){
     return(
         <li className='itemContatoContainer'>
             <span className='indexContact'>{index}</span>
@@ -26,8 +27,8 @@ export function ItemContato({contact,index}){
             <span className="contactEmail">{contact.email}</span>
             <span className='contactBirthDate'> {dateFormated(contact.dataNascimento)}</span>
             <div className='contactActions'>
-                <button className='btn btnEditar'> <UserEdit/> Editar </button>
-                <button className='btn btnExcluir'> <Delete/> Excluir </button>
+                <ButtonEditContato contato={contact}/>
+                <ButtonRemoveContato contato={contact} handleShowModalRemoveContato={handleShowModalRemoveContato}/>
             </div>
         </li>
     )

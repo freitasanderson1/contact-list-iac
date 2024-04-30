@@ -5,7 +5,7 @@ import { ItemContato } from '../content/itemContato';
 
 const ListUpdates = () => {
     var ulContatos = document.querySelector('#ulContatos')
-    var html = ReactDOM.createRoot(ulContatos)
+    var htmlList = ReactDOM.createRoot(ulContatos)
 
     Promise.resolve(apiContacts.get()).then((response) => {
         var listContacts = response.data
@@ -24,7 +24,7 @@ const ListUpdates = () => {
             ]
 
             listContacts.map((contact,index) =>{htmlToRender.push(<ItemContato contact={contact} index={index+1} key={index}/>)})
-            html.render(htmlToRender)
+            htmlList.render(htmlToRender)
         }
     
     

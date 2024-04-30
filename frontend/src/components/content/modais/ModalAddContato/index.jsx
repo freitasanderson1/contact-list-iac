@@ -21,52 +21,54 @@ function createNewContactus(){
 }
 
 async function newContactPost(){
-    
-    const data = new FormData();
+    if(!(document.querySelector('#novo_telefone').value.length < 15) && (document.querySelector('#novo_email').value.includes('@'))){
 
-    data.append("nome", document.querySelector('#novo_nome').value)
-    data.append("email", document.querySelector('#novo_email').value)
-    data.append("celular", document.querySelector('#novo_telefone').value.replace(' ','').replace('(','').replace(')','').replace('-','').replace(' ',''))
-    data.append("imagem", document.querySelector('#nova_imagem').files[0])
-    data.append("dataNascimento", document.querySelector('#novo_dataNascimento').value)
-    
-    var msg = document.querySelector('#msg')
-    var htmlMsg = ReactDOM.createRoot(msg)
+        const data = new FormData();
 
-    await apiContacts.post(
-        '',
-        data,
-        {headers: 
-            {
-                "content-type": "multipart/form-data"
+        data.append("nome", document.querySelector('#novo_nome').value)
+        data.append("email", document.querySelector('#novo_email').value)
+        data.append("celular", document.querySelector('#novo_telefone').value.replace(' ','').replace('(','').replace(')','').replace('-','').replace(' ',''))
+        data.append("imagem", document.querySelector('#nova_imagem').files[0])
+        data.append("dataNascimento", document.querySelector('#novo_dataNascimento').value)
+        
+        var msg = document.querySelector('#msg')
+        var htmlMsg = ReactDOM.createRoot(msg)
+
+        await apiContacts.post(
+            '',
+            data,
+            {headers: 
+                {
+                    "content-type": "multipart/form-data"
+                }
             }
-        }
-    ).then((result) =>{
-        console.log(result.status,result.statusText)
-        if(result.status==201){
-            
-            
-            htmlMsg.render(
-                <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
-                    <div style={{backgroundColor:"#01ee7f",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
-                        <span>Contactus Criado</span>
+        ).then((result) =>{
+            console.log(result.status,result.statusText)
+            if(result.status==201){
+                
+                
+                htmlMsg.render(
+                    <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
+                        <div style={{backgroundColor:"#01ee7f",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
+                            <span>Contactus Criado</span>
+                        </div>
                     </div>
-                </div>
-            )
-        }
-    }).catch((err)=>{
-        if(err.response.status == 400){
-            htmlMsg.render(
-                <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
-                    <div style={{backgroundColor:"#980404",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
-                        <span>Contactus com este Email ou Número já existente</span>
+                )
+            }
+        }).catch((err)=>{
+            if(err.response.status == 409){
+                htmlMsg.render(
+                    <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}>
+                        <div style={{backgroundColor:"#980404",color:"#FFFFFF",fontWeight:"600",paddingInline:"10rem",paddingTop:"1rem",paddingBottom:"1rem",borderRadius:"8px"}}>
+                            <span>Contactus com este Email ou Número já existente</span>
+                        </div>
                     </div>
-                </div>
-            )
-        }
-        return null
-    })
-    ListUpdate()
+                )
+            }
+            return null
+        })
+        ListUpdate()
+    }
 }
 
 function hiddenInput(e){
@@ -80,7 +82,7 @@ function hiddenInput(e){
 
     
         let formattedInput = '';
-        if (input.length > 0) {
+        if (input.length > 10) {
             formattedInput = '(' + input.substring(0, 2);
             if (input.length > 2) {
                 formattedInput += ') ' + input.substring(2, 3) + ' ' + input.substring(3, 7);
@@ -88,9 +90,9 @@ function hiddenInput(e){
                     formattedInput += '-' + input.substring(7, 11);
                 }
             }
+            e.target.value = formattedInput;
         }
 
-        e.target.value = formattedInput;
 
         document.querySelector(`#${e.target.id}_helpText`).classList.add('d-none')
     }

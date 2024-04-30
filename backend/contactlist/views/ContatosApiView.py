@@ -28,3 +28,70 @@ class ContatosApiView(viewsets.ModelViewSet):
         Contatos_serialized = ContatosSerializer(queryset, many=True)
 
         return Response(Contatos_serialized.data)
+    
+    def create(self, request, *args, **kwargs):
+
+        data = request.POST
+
+        try:
+            contato = Contatos.objects.get(
+                Q(celular=data.get('celular'))|        
+                Q(email=data.get('email'))
+            )
+
+            responseData = {'mensagem': 'Já existe um Contato com esse código ou número cadastrado!',}
+            status=409
+
+        except:
+            contato = Contatos()
+
+            contato.nome = data.get('nome')
+            contato.email = data.get('email')
+            contato.celular = data.get('celular')
+            contato.dataNascimento = data.get('dataNascimento')
+            contato.imagem = request.FILES.get('imagem')
+
+            contato.save()
+
+            responseData = {'mensagem': 'Contato Cadastrado!',}
+            status=201  
+        
+        return Response(responseData,status=status)
+
+    def partial_update(self, request, *args, **kwargs):
+
+        data = request.POST
+
+        contato = Contatos.objects.get(id=kwargs.get('pk'))
+
+        contato.nome = data.get('nome')
+        contato.email = data.get('email')
+        contato.celular = data.get('celular')
+        contato.dataNascimento = data.get('dataNascimento')
+        contato.imagem = request.FILES.get('imagem', contato.imagem)
+
+        contato.save()
+
+        responseData = {'mensagem': 'Produto Editado!',}
+        status=201  
+
+        return Response(responseData,status=status)
+    
+    def update(self, request, *args, **kwargs):
+
+        data = request.POST
+
+        contato = Contatos.objects.get(id=kwargs.get('pk'))
+
+        contato.nome = data.get('nome')
+        contato.email = data.get('email')
+        contato.celular = data.get('celular')
+        contato.dataNascimento = data.get('dataNascimento')
+        contato.imagem = request.FILES.get('imagem', contato.imagem)
+
+        contato.save()
+        
+        responseData = {'mensagem': 'Produto Editado!',}
+        status=201  
+
+        return Response(responseData,status=status)

@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { ModalAddContato } from '../../modais/ModalAddContato'
-import { UserAdd } from '../../../icons'
+import { UserEdit } from '../../../icons'
 
-export function ButtonEditContato(){
+import { ModalEditContato } from '../../modais/ModalEditContato'
 
-    const [showModalAddContato, setModalAddContato] = useState(false);
+export function ButtonEditContato({contato}){
 
-    const handleCloseModalAddContato = () => setModalAddContato(false);
-    const handleShowModalAddContato = () => setModalAddContato(true);
+    const [showModalEditContato, setModalEditContato] = useState(false);
+
+    const handleCloseModalEditContato = () => setModalEditContato(false);
+    const handleShowModalEditContato = () => setModalEditContato(true);
 
     return(
         <>
-            <button className='btn btnAdicionar' onClick={handleShowModalAddContato}><UserAdd/>Novo Contactus</button>
-            <ModalAddContato show={showModalAddContato} closeModal={handleCloseModalAddContato}/>
+            <button className='btn btnEditar' onClick={handleShowModalEditContato}> <UserEdit/> Editar </button>
+            <ModalEditContato showEdit={showModalEditContato} contact={contato} closeModal={handleCloseModalEditContato}/>
         </>
     
     )

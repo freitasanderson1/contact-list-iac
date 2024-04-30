@@ -3,7 +3,7 @@ import { ItemContato } from '../itemContato'
 
 import './listacontatos.css'
 
-export const ListaContatos = ({ fetchContacts, contacts }) =>{
+export const ListaContatos = ({ fetchContacts, contacts,handleShowModalRemoveContato }) =>{
     
     useEffect(() => {
         fetchContacts();
@@ -20,7 +20,7 @@ export const ListaContatos = ({ fetchContacts, contacts }) =>{
             </li>
 
             {contacts.map((contact,index) => (
-                <ItemContato contact={contact} index={index+1} key={index}/>
+                <ItemContato contact={contact} index={index+1} handleShowModalRemoveContato={handleShowModalRemoveContato} key={index}/>
             ))}
 
         </ul>
