@@ -58,11 +58,11 @@ export function ModalEditContato({showEdit,contact,closeModal}){
       
             const data = new FormData();
     
-            data.append("nome", document.querySelector('#edit_nome').value)
-            data.append("email", document.querySelector('#edit_email').value)
-            data.append("celular", document.querySelector('#edit_telefone').value.replace(' ','').replace('(','').replace(')','').replace('-','').replace(' ',''))
-            data.append("imagem", document.querySelector('#edit_imagem').files[0])
-            data.append("dataNascimento", document.querySelector('#edit_dataNascimento').value)
+            data.append("nome", nome)
+            data.append("email",email)
+            data.append("celular", telefone.replace(' ','').replace('(','').replace(')','').replace('-','').replace(' ',''))
+            data.append("imagem", file)
+            data.append("dataNascimento", dataNascimento)
             
             var msg = document.querySelector('#msg')
             var htmlMsg = ReactDOM.createRoot(msg)
